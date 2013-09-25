@@ -1,1 +1,17 @@
+ul.images li{
+	
+	height:100px;
+	width:100px;
+	overflow: hidden;
+	position: relative;
+}
 
+ul.images li img{
+	height: 100px;
+	max-width: none;
+	position: absolute;
+}
+
+#cat >li{
+
+}

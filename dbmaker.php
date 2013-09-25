@@ -19,6 +19,6 @@ foreach ($files as $key => $value) {
 }
 
 file_put_contents('db.json', json_encode($pic));
-
+exec('zip -r storage.zip storage');
 
 ?>
