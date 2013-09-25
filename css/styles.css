@@ -1,17 +1,14 @@
-ul.images li{
-	
-	height:100px;
-	width:100px;
-	overflow: hidden;
-	position: relative;
+#wrapper{
+	padding:0 20px;
 }
 
-ul.images li img{
-	height: 100px;
-	max-width: none;
-	position: absolute;
+.carousel-control{
+	position: fixed;
+	top:50%;
 }
 
-#cat >li{
-
+.carousel-indicators{
+	position: fixed;
+	top:20px;
+	right:50px;
 }
