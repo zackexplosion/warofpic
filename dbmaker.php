@@ -5,7 +5,7 @@ $files = scandir($root);
 unset($files[0],$files[1]);
 
 
-$pic = array();
+$pic['images'] = array();
 foreach ($files as $key => $value) {
 	$dir = $root . '/' . $value;
 	if(is_dir($dir)){
@@ -13,7 +13,7 @@ foreach ($files as $key => $value) {
 		unset($images[0],$images[1]);
 
 		foreach ($images as $k => $v) {
-			$pic[$value][] = $v;
+			$pic['images'][$value][] = $v;
 		}		
 	}	
 }

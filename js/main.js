@@ -40,8 +40,8 @@ var ib = 'https://raw.github.com/cstony0917/warofpic/gh-pages/storage/';
 var span = [2,3,4];
 $(function(){
   var i = 0;
-  $.getJSON('db.json',function(r){
-      $.each(r, function(k,v) {
+  //$.getJSON('db.json',function(r){
+      $.each(images, function(k,v) {
         var active = null;
         if(i ==0 ){
           active = 'active';
@@ -75,5 +75,5 @@ $(function(){
         i++;
       });
       $('.carousel').carousel()
-  });
+  //});
 });

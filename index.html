@@ -6,12 +6,18 @@
     <link href="css/styles.css" rel="stylesheet">
     <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
 
+<script id="db" type="text/javascript" src="db.json">
+ 
+</script>
 
   </head>
 <body>
 <script type="text/javascript">
-var js = document.createElement("script");    
+var js = document.createElement("script");
 js.type = "text/javascript";
+
+var js2 = document.createElement("script");
+js2.type = "text/javascript";
 
 var css = document.createElement("link");
 css.rel = "stylesheet";
@@ -20,9 +26,11 @@ css.rel = "stylesheet";
 
 if(window.location.host == 'localhost'){
   js.src = 'js/main.js';
+  js2.src= 'js/db.json';
   css.href = 'css/styles.css';
 }else{
   js.src = 'https://raw.github.com/cstony0917/warofpic/gh-pages/js/main.js';
+  js2.src= 'https://raw.github.com/cstony0917/warofpic/gh-pages/db.json';
   css.href = 'https://raw.github.com/cstony0917/warofpic/gh-pages/css/styles.css';
 }
 
