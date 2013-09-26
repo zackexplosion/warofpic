@@ -5,7 +5,7 @@ $files = scandir($root);
 unset($files[0],$files[1]);
 
 
-$pic['images'] = array();
+$pic = array();
 foreach ($files as $key => $value) {
 	$dir = $root . '/' . $value;
 	if(is_dir($dir)){
@@ -13,12 +13,12 @@ foreach ($files as $key => $value) {
 		unset($images[0],$images[1]);
 
 		foreach ($images as $k => $v) {
-			$pic['images'][$value][] = $v;
+			$pic[$value][] = $v;
 		}		
 	}	
 }
-
-file_put_contents('db.json', json_encode($pic));
+$output = 'var images = ';
+file_put_contents('db.json', $output .  json_encode($pic));
 exec('zip -r storage.zip storage');
 
 ?>
