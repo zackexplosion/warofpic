@@ -40,7 +40,7 @@ var ib = 'https://raw.github.com/cstony0917/warofpic/gh-pages/storage/';
 var span = [2,3,4];
 $(function(){
   var i = 0;
-  //$.getJSON('db.json',function(r){
+  $.getScript( db, function(r) {
       $.each(images, function(k,v) {
         var active = null;
         if(i ==0 ){
@@ -75,5 +75,27 @@ $(function(){
         i++;
       });
       $('.carousel').carousel()
-  //});
+  });
+  //
+
+var url = "https://raw.github.com/jquery/jquery-color/master/jquery.color.js";
+$.getScript( url, function(r) {
+  var a = r;
+
+  $( "#go" ).click(function() {
+    $( ".block" )
+      .animate({
+        backgroundColor: "rgb(255, 180, 180)"
+      }, 1000 )
+      .delay( 500 )
+      .animate({
+        backgroundColor: "olive"
+      }, 1000 )
+      .delay( 500 )
+      .animate({
+        backgroundColor: "#00f"
+      }, 1000 );
+  });
+});
+
 });
