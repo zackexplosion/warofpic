@@ -37,7 +37,7 @@ function nano(template, data) {
 })(jQuery);
 //image base
 var ib = 'https://raw.github.com/cstony0917/warofpic/gh-pages/storage/';
-var span = [2,3,4,6];
+var span = [2,3,4];
 $(function(){
   var i = 0;
   $.getJSON('db.json',function(r){
