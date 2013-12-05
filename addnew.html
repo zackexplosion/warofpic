@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootswatch/3.0.2/cyborg/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <script src="js/lib.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+var js = document.createElement("script");
+js.type = "text/javascript";
+
+var css = document.createElement("link");
+css.rel = "stylesheet";
+
+var githubBase = 'https://raw.github.com/cstony0917/warofpic/gh-pages/';
+var dev = (window.location.host == 'localhost')? true : false;
+
+if(dev){
+  js.src = 'js/addnew.js';
+  db = 'db.json';
+  css.href = 'css/styles.css';
+}else{
+  js.src = githubBase + 'js/main.js';
+  db = githubBase + 'db.json';
+  css.href = githubBase + 'css/styles.css';
+}
+
+document.head.appendChild(js);
+document.head.appendChild(css);
+
+</script>   
+  </head>
+<body>
+
+
+<div id="wrapper">
+	<form action="" method="post">
+
+<div class="input-group">
+  <span class="input-group-addon">@</span>
+  <span class="form-control"><input type="file" value="" /></span>
+</div>
+
+<div class="input-group">
+  <input type="text" class="form-control">
+  <span class="input-group-addon">.00</span>
+</div>
+
+<div class="input-group">
+  <span class="input-group-addon">$</span>
+  <input type="text" class="form-control">
+  <span class="input-group-addon">.00</span>
+</div>
+	</form>
+</div>  
+</body>
+</html>
