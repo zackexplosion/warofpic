@@ -12,7 +12,23 @@
 */
 $(function() {
 
-$.fn.bootstrapFileInput = function() {
+$.fn.ajaxBootstrapUpload = function(options) {
+  var settings = {
+    params: {},
+    action: '',
+    onStart: function() { console.log('starting upload'); console.log(this); },
+    onComplete: function(response) { console.log('got response: '); console.log(response); console.log(this); },
+    onCancel: function() { console.log('cancelling: '); console.log(this); },
+    validate_extensions : true,
+    valid_extensions : ['gif','png','jpg','jpeg'],
+    submit_button : null
+  };
+  var $element = $(this);
+  var uploading_file = false;
+
+  if ( options ) { 
+    $.extend( settings, options );
+  }
 
   this.each(function(i,elem){
 
@@ -87,46 +103,136 @@ $.fn.bootstrapFileInput = function() {
     });
 
     $('.file-input-wrapper input[type=file]').change(function(){
-
       var fileName;
       fileName = $(this).val();
-
-      var ext = fileName.split('.');
-
-      ext = ext[ext.length-1];
-
-      //check if is an image
-      switch(ext){
-        case 'jpg':
-        case 'jpeg':
-        case 'png':
-        case 'bmp':
-        case 'gif':
-          isValidFile = true;
-        break;
+      // Remove any previous file names
+      $(this).parent().next('.file-input-name').remove();
+      if (!!$(this).prop('files') && $(this).prop('files').length > 1) {
+        fileName = $(this)[0].files.length+' files';
+        //$(this).parent().after('<span class="file-input-name">'+$(this)[0].files.length+' files</span>');
       }
-      console.log(isValidFile);
-      if(isValidFile){
-        // Remove any previous file names
-        $(this).parent().next('.file-input-name').remove();
-        if (!!$(this).prop('files') && $(this).prop('files').length > 1) {
-          fileName = $(this)[0].files.length+' files';
-          //$(this).parent().after('<span class="file-input-name">'+$(this)[0].files.length+' files</span>');
-        }
-        else {
-          // var fakepath = 'C:\\fakepath\\';
-          // fileName = $(this).val().replace('C:\\fakepath\\','');
-          fileName = fileName.substring(fileName.lastIndexOf('\\')+1,fileName.length);
-        }
-      }else{
-        fileName = 'not valid file name';
-        $(".alert").alert();
+      else {
+        // var fakepath = 'C:\\fakepath\\';
+        // fileName = $(this).val().replace('C:\\fakepath\\','');
+        fileName = fileName.substring(fileName.lastIndexOf('\\')+1,fileName.length);
       }
-
-      //file name check
 
       $(this).parent().after('<span class="file-input-name">'+fileName+'</span>');
+
+
+      // since a new image was selected, reset the marker
+      uploading_file = false;
+
+      // only update the file from here if we haven't assigned a submit button
+      if (settings.submit_button == null)
+      {
+        upload_file();
+      }
+
     });
+
+    if (settings.submit_button == null)
+    {
+      // do nothing
+    } else
+    {
+      settings.submit_button.click(function()
+      {
+        // only attempt to upload file if we're not uploading
+        if (!uploading_file)
+        {
+          upload_file();
+        }
+      });
+    }
+
+    var upload_file = function()
+    {
+      if($element.val() == '') return settings.onCancel.apply($element, [settings.params]);
+
+      // make sure extension is valid
+      var ext = $element.val().split('.').pop().toLowerCase();
+      if(true === settings.validate_extensions && $.inArray(ext, settings.valid_extensions) == -1)
+      {
+        // Pass back to the user
+        settings.onComplete.apply($element, [{status: false, message: 'The select file type is invalid. File must be ' + settings.valid_extensions.join(', ') + '.'}, settings.params]);
+      } else
+      { 
+        uploading_file = true;
+
+        // Creates the form, extra inputs and iframe used to 
+        //  submit / upload the file
+        wrapElement($element);
+
+        // Call user-supplied (or default) onStart(), setting
+        //  it's this context to the file DOM element
+        var ret = settings.onStart.apply($element, [settings.params]);
+
+        // let onStart have the option to cancel the upload
+        if(ret !== false)
+        {
+          $element.parent('form').submit(function(e) { e.stopPropagation(); }).submit();
+        }
+      }
+    };
+
+    // Mark this element as setup
+    $element.data('ajaxUploader-setup', true);
+
+    /*
+    // Internal handler that tries to parse the response 
+    //  and clean up after ourselves. 
+    */
+    var handleResponse = function(loadedFrame, element) {
+      var response, responseStr = loadedFrame.contentWindow.document.body.innerHTML;
+      try {
+        //response = $.parseJSON($.trim(responseStr));
+        response = JSON.parse(responseStr);
+      } catch(e) {
+        response = responseStr;
+      }
+
+      // Tear-down the wrapper form
+      element.siblings().remove();
+      element.unwrap();
+
+      uploading_file = false;
+
+      // Pass back to the user
+      settings.onComplete.apply(element, [response, settings.params]);
+    };
+
+    /*
+    // Wraps element in a <form> tag, and inserts hidden inputs for each
+    //  key:value pair in settings.params so they can be sent along with
+    //  the upload. Then, creates an iframe that the whole thing is 
+    //  uploaded through. 
+    */
+    var wrapElement = function(element) {
+      // Create an iframe to submit through, using a semi-unique ID
+      var frame_id = 'ajaxUploader-iframe-' + Math.round(new Date().getTime() / 1000)
+      $('body').after('<iframe width="0" height="0" style="display:none;" name="'+frame_id+'" id="'+frame_id+'"/>');
+      $('#'+frame_id).load(function() {
+        handleResponse(this, element);
+      });
+
+      // Wrap it in a form
+      element.wrap(function() {
+        return '<form action="' + settings.action + '" method="POST" enctype="multipart/form-data" target="'+frame_id+'" />'
+      })
+      // Insert <input type='hidden'>'s for each param
+      .before(function() {
+        var key, html = '';
+        for(key in settings.params) {
+          var paramVal = settings.params[key];
+          if (typeof paramVal === 'function') {
+            paramVal = paramVal();
+          }
+          html += '<input type="hidden" name="' + key + '" value="' + paramVal + '" />';
+        }
+        return html;
+      });
+    }
 
   });
 

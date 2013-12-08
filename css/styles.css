@@ -12,3 +12,9 @@
 	top:20px;
 	right:50px;
 }
+.form-inline {
+	margin-bottom:15px;
+}
+.form-inline .form-group:last-child{
+	float:right;
+}
