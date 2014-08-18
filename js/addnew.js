@@ -2,20 +2,28 @@ var serverBase = 'http://localhost/warofpic_server/index.php/';
 if(!dev){
 	serverBase = 'http://54.238.147.136/index.php/';
 }
-
+var processResult = function(res){
+	alert(res);
+};
 $(function(){
 
 
 	var uploadInputBox = $('input[type=file]');
 
 	//uploadInputBox.bootstrapFileInput();
-
+//ajaxBootstrapUpload
+//ajaxfileupload
    uploadInputBox.ajaxfileupload({
       'action': serverBase + 'picture/add',
       'submit_button' : $('#upload'),
       'params' : {'des' : 'file name'},
-       'valid_extensions' : ['gif','png','jpg','jpeg']
+      'valid_extensions' : ['gif','png','jpg','jpeg'],
+      'onComplete':function(response){
+		processResult(response);
+      }
     });
+
+
    
 
 	// $('#upload').click(function(){
