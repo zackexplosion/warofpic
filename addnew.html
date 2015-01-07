@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootswatch/3.0.2/cyborg/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+
+    <script src="js/lib.js"></script>
+    <script src="http://localhost/jQuery.AjaxFileUpload.js.git/jquery.ajaxfileupload.js"></script>
+
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+    var isValidFile = false;
+
+    var js = document.createElement("script");
+    js.type = "text/javascript";
+
+    var css = document.createElement("link");
+    css.rel = "stylesheet";
+
+    var githubBase = 'https://raw.github.com/cstony0917/warofpic/gh-pages/';
+    var dev = (window.location.host == 'localhost')? true : false;
+
+    if(dev){
+      js.src = 'js/addnew.js';
+      db = 'db.json';
+      css.href = 'css/styles.css';
+    }else{
+      js.src = githubBase + 'js/addnew.js';
+      db = githubBase + 'db.json';
+      css.href = githubBase + 'css/styles.css';
+    }
+
+    document.head.appendChild(js);
+    document.head.appendChild(css);
+
+    </script>
+
+  </head>
+<body>
+
+
+<div id="wrapper" class="container" style="width:600px;">
+
+<!--   <div class="alert alert-danger fade in">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          <h4>Wrong File Type!</h4>
+          <p>Change this and that and try again. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum.</p>
+          <p>
+            <button type="button" class="btn btn-danger">Take this action</button>
+            <button type="button" class="btn btn-default">Or do this</button>
+          </p>
+  </div> -->
+
+  <h1>Upload Picture to JOIN the WAR!</h1>
+	<form action="/warofpic_server/index.php/picture/add" method="post" enctype="multipart/form-data">
+<!--   <form action="http://localhost/warofpic_server/test.php" method="post" enctype="multipart/form-data"> -->
+
+<div class="form-inline">
+<div class="form-group">
+<!--   <span class="input-group-addon">@</span> -->
+  <!-- <span class="form-control" ><input type="file" title="Search for a file to add" class="btn-default navbar-btn" /></span> -->
+  <input name="picture" id="fileToUpload" type="file" title="Select for a file to add" class="btn-default navbar-btn" />
+</div>
+
+
+</div><!-- .form-inline -->
+<div class="form-group">
+  <input name="tags" type="text" class="form-control" id="inputboxTag" placeholder="Enter tags of this Picture" data-role="tagsinput" style="width:200px;" >
+</div>
+    
+
+<div class="form-inline"  role="form">
+<!--   <div class="form-group">
+    <label for="inputboxTag">TAG</label>
+    <input name="tags" type="text" class="form-control" id="inputboxTag" placeholder="Enter tags of this Picture">
+  </div>
+
+  <div class="form-group">
+    <label for="imageDescription">Description</label>
+    <input name="description" type="text" class="form-control" id="imageDescription" placeholder="Enter The Description of this Picture">
+  </div> -->
+
+      <input name="description" type="text" class="form-control" id="imageDescription" placeholder="Enter The Description of this Picture" style="width:280px;">
+  <button type="button" class="btn btn-default" id="upload">Upload</button>
+</div><!-- .form-inline -->
+
+
+
+
+<!-- 
+<div class="form-group">
+<button type="submit" class="btn btn-default" >Submit</button>
+</div>
+ -->
+<!-- 
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputFile">File input</label>
+    <input type="file" id="exampleInputFile">
+    <p class="help-block">Example block-level help text here.</p>
+  </div>
+  <div class="checkbox">
+    <label>
+      <input type="checkbox"> Check me out
+    </label>
+  </div> -->
+
+	</form>
+</div>  
+</body>
+</html>
