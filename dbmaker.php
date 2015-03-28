@@ -17,8 +17,8 @@ foreach ($files as $key => $value) {
 		}		
 	}	
 }
-
-file_put_contents('db.json', json_encode($pic));
+$output = 'var images = ';
+file_put_contents('db.json', $output .  json_encode($pic));
 exec('zip -r storage.zip storage');
 
 ?>

@@ -5,31 +5,32 @@
     <link href="//netdna.bootstrapcdn.com/bootswatch/2.3.2/cyborg/bootstrap.min.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
     <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-
-
-  </head>
-<body>
 <script type="text/javascript">
-var js = document.createElement("script");    
+var js = document.createElement("script");
 js.type = "text/javascript";
 
 var css = document.createElement("link");
 css.rel = "stylesheet";
 
-
+var db = null;
 
 if(window.location.host == 'localhost'){
   js.src = 'js/main.js';
+  db = 'db.json';
   css.href = 'css/styles.css';
 }else{
   js.src = 'https://raw.github.com/cstony0917/warofpic/gh-pages/js/main.js';
+  db = 'https://raw.github.com/cstony0917/warofpic/gh-pages/db.json';
   css.href = 'https://raw.github.com/cstony0917/warofpic/gh-pages/css/styles.css';
 }
 
-document.body.appendChild(js);
-document.body.appendChild(css);
+document.head.appendChild(js);
+document.head.appendChild(css);
 
 </script>   
+  </head>
+<body>
+
 
 <div id="wrapper">
   <div class="row-fluid">
