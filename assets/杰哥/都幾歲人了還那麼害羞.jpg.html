@@ -118,9 +118,16 @@
     <script src="../../assets/js/jquery.zclip.js"></script>
     <script>
       $(document).ready(function(){
+        var host = window.location.origin;
+        var index = window.location.pathname.indexOf("/assets");
+        var pathname = window.location.pathname.substring(0,index);
+        var path_prefix = host + pathname + "/";
+        var resource = "../../storage/杰哥/都幾歲人了還那麼害羞.jpg";
+        var resource_path = resource.substring(7,200);
+        var image_link = path_prefix + resource_path;
         $("#copy").zclip({
           path: "../../assets/js/ZeroClipboard.swf",
-          copy: 'this is a book'
+          copy: image_link
         });
       });
     </script>
