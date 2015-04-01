@@ -127,7 +127,8 @@
         var image_link = path_prefix + resource_path;
         $("#copy").zclip({
           path: "../../assets/js/ZeroClipboard.swf",
-          copy: image_link
+          copy: image_link,
+          afterCopy: function(){console.log("text copied!");}
         });
       });
     </script>
